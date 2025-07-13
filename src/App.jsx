@@ -5,10 +5,11 @@ import ControlPanel from './components/ControlPanel';
 import AlgorithmInfo from './components/AlgorithmInfo';
 import ColorLegend from './components/ColorLegend';
 import useSorting from './hooks/useSorting';
+import ChatBotButton from './components/ChatBotButton';
 
 export default function SortingVisualizer() {
   const [displayMode, setDisplayMode] = useState('bars');
-  
+  // Destructor = normally variable ka access provide karta h
   const {
     array,
     sorting,
@@ -26,7 +27,7 @@ export default function SortingVisualizer() {
     startSorting,
     pauseSorting,
     setArraySizePreset
-  } = useSorting(10); // Start with array size 20
+  } = useSorting(10); 
 
   return (
     <div className="flex h-screen bg-black text-gray-200">
@@ -69,6 +70,9 @@ export default function SortingVisualizer() {
             generateRandomArray={generateRandomArray}
           />
         </div>
+        <div className="fixed top-4 right-4 z-50">
+        <ChatBotButton />
+      </div>
       </div>
     </div>
   );

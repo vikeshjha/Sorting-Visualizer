@@ -1,4 +1,5 @@
 import ArraySizeSelector from './ArraySizeSelector';
+
 import DisplayModeSelector from './DisplayModeSelector';
 
 export default function AlgorithmSelector({ 
@@ -50,6 +51,7 @@ export default function AlgorithmSelector({
         displayMode={displayMode}
         setDisplayMode={setDisplayMode}
       />
+     
     </div>
   );
 }

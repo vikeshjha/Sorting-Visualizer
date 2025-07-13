@@ -20,7 +20,7 @@ export default function useSorting(initialArraySize = 20) {
   const [swappingIndices, setSwappingIndices] = useState([]);
   const [sortingInfo, setSortingInfo] = useState({});
   
-  // Use refs to track if sorting should continue
+  // Use refs to track if sorting should continue , re render se bachata h
   const sortingRef = useRef(false);
   const pausedRef = useRef(false);
   const speedRef = useRef(speed);
@@ -52,19 +52,19 @@ export default function useSorting(initialArraySize = 20) {
     generateRandomArray();
   }, [arraySize]);
 
-  // Sleep function for animations that respects the pause state
+ 
   const sleep = async (ms) => {
-    // Always use the current speed from the ref
+ 
     const currentDelay = speedRef.current;
     
     let start = Date.now();
     while (Date.now() - start < currentDelay) {
-      // Check if paused
+   
       if (pausedRef.current) {
         await new Promise(resolve => {
           const checkPause = () => {
             if (pausedRef.current) {
-              setTimeout(checkPause, 100);
+              setTimeout(checkPause, 100); // wait 100 millisecond then call checkpause function
             } else {
               start = Date.now(); // Reset the start time when unpaused
               resolve();
@@ -77,7 +77,7 @@ export default function useSorting(initialArraySize = 20) {
     }
   };
 
-  // Start sorting based on selected algorithm
+ 
   const startSorting = async () => {
     if (sorting && !paused) return;
     
@@ -102,7 +102,7 @@ export default function useSorting(initialArraySize = 20) {
       setPaused,
       pausedRef,
       sleep,
-      speed: speedRef.current, // Use the ref
+      speed: speedRef.current,
       setComparingIndices,
       setSwappingIndices
     };
