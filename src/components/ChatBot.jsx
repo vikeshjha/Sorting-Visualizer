@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { URL } from '../constant';
 
 const ChatBot = ({ onClose }) => {
   const [messages, setMessages] = useState([
@@ -23,7 +24,7 @@ const ChatBot = ({ onClose }) => {
 
     try {
       const response = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyC8NUZZWqvjTuZdxHFTZ5j4N_sr-49SDZw`,
+        URL,
         {
           contents: [{ parts: [{ text: input }] }]
         },
