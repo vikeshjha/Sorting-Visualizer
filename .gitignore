@@ -16,7 +16,7 @@ dist-ssr
 # Local environment and secret files
 .env
 .env.local
-src/constants.js  
+constants.js  
 
 # Editor directories and files
 .vscode/*
