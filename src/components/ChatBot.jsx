@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { URL } from '../constant';
+import { marked } from 'marked';
 
 const ChatBot = ({ onClose }) => {
   const [messages, setMessages] = useState([
@@ -8,10 +9,10 @@ const ChatBot = ({ onClose }) => {
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [visible, setVisible] = useState(false); 
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setVisible(true), 10); 
+    setTimeout(() => setVisible(true), 10);
   }, []);
 
   const handleSend = async () => {
@@ -26,21 +27,40 @@ const ChatBot = ({ onClose }) => {
       const response = await axios.post(
         URL,
         {
-          contents: [{ parts: [{ text: input }] }]
+          contents: [{ role: 'user', parts: [{ text: input }] }],
         },
         {
-          headers: { 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json' },
         }
       );
 
-      const botReply = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no response.";
+      const botReply = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, no response.';
       setMessages((prev) => [...prev, { sender: 'bot', text: botReply }]);
     } catch (err) {
-      console.error("Gemini API Error:", err);
-      setMessages((prev) => [...prev, { sender: 'bot', text: 'Sorry, something went wrong!' }]);
+      console.error('Gemini API Error:', err);
+      setMessages((prev) => [...prev, { sender: 'bot', text: '❌ Sorry, something went wrong!' }]);
     }
 
     setLoading(false);
+  };
+
+  const renderMessage = (msg) => {
+    if (msg.sender === 'user') {
+      return (
+        <div className="text-right">
+          <span className="inline-block p-2 rounded-xl bg-green-700 text-white">{msg.text}</span>
+        </div>
+      );
+    } else {
+      return (
+        <div className="text-left">
+          <div
+            className="prose prose-sm max-w-none text-white bg-gray-800 p-2 rounded-xl"
+            dangerouslySetInnerHTML={{ __html: marked(msg.text) }}
+          />
+        </div>
+      );
+    }
   };
 
   return (
@@ -54,7 +74,7 @@ const ChatBot = ({ onClose }) => {
         <button
           onClick={() => {
             setVisible(false);
-            setTimeout(onClose, 300); 
+            setTimeout(onClose, 300);
           }}
           className="text-white hover:text-red-500"
         >
@@ -62,13 +82,9 @@ const ChatBot = ({ onClose }) => {
         </button>
       </div>
 
-      <div className="flex-1 p-3 overflow-y-auto space-y-2 text-sm text-white">
+      <div className="flex-1 p-3 overflow-y-auto space-y-2 text-sm">
         {messages.map((msg, i) => (
-          <div key={i} className={`text-${msg.sender === 'user' ? 'right' : 'left'}`}>
-            <span className={`inline-block p-2 rounded-xl ${msg.sender === 'user' ? 'bg-green-700' : 'bg-gray-700'}`}>
-              {msg.text}
-            </span>
-          </div>
+          <div key={i}>{renderMessage(msg)}</div>
         ))}
         {loading && <div className="text-gray-400 italic">Typing...</div>}
       </div>
