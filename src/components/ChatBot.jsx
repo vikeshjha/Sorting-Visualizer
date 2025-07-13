@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { URL } from '../constant'; // Ensure your constant.js file exports the Gemini API URL
+import { URL } from '../constant'; 
 import { marked } from 'marked';
 
 const ChatBot = ({ onClose }) => {
@@ -67,7 +67,7 @@ const ChatBot = ({ onClose }) => {
       return (
         <div className="text-left">
           <div
-            className="prose prose-sm prose-invert max-w-none bg-gray-800 p-3 rounded-xl"
+            className=" max-w-none bg-gray-800 p-3 rounded-xl"
             dangerouslySetInnerHTML={{ __html: marked.parse(msg.text) }}
           />
         </div>
