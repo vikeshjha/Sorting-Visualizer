@@ -7,6 +7,7 @@ import ColorLegend from './components/ColorLegend';
 import useSorting from './hooks/useSorting';
 import ChatBotButton from './components/ChatBotButton';
 
+
 export default function SortingVisualizer() {
   const [displayMode, setDisplayMode] = useState('bars');
   // Destructor = normally variable ka access provide karta h
