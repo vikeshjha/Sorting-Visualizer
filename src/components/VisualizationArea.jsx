@@ -6,21 +6,21 @@ export default function VisualizationArea({
   arraySize,
   displayMode,
 }) {
-  // Get color for array bar
+  
   const getBarColor = (index) => {
     if (swappingIndices.includes(index)) {
-      return "#FF4500"; // OrangeRed for swapping - prioritize showing swap color
+      return "#FF4500"; 
     }
     if (comparingIndices.includes(index)) {
-      return "#FFD700"; // Gold for comparing
+      return "#FFD700";
     }
     if (completed) {
-      return "#4CAF50"; // Green for completed
+      return "#4CAF50"; 
     }
-    return "#e2e8f0"; // Light gray for unsorted
+    return "#e2e8f0"; 
   };
 
-  // Get bar width based on array size
+
   const getBarWidth = () => {
     if (arraySize <= 5 ) return { min: "20px", max: "90px" };
     if (arraySize <= 10) return { min: "10px", max: "50px" };
