@@ -20,22 +20,21 @@ export default function useSorting(initialArraySize = 20) {
   const [swappingIndices, setSwappingIndices] = useState([]);
   const [sortingInfo, setSortingInfo] = useState({});
   
-  // Use refs to track if sorting should continue , re render se bachata h
+  
   const sortingRef = useRef(false);
   const pausedRef = useRef(false);
   const speedRef = useRef(speed);
 
-  // Update speed ref when speed changes
+  
   useEffect(() => {
     speedRef.current = speed;
   }, [speed]);
 
-  // Update sorting info when algorithm changes
+  
   useEffect(() => {
     setSortingInfo(algorithmInfo[algorithm]);
   }, [algorithm]);
 
-  // Generate random array
   const generateRandomArray = () => {
     const newArray = [];
     for (let i = 0; i < arraySize; i++) {
@@ -47,7 +46,7 @@ export default function useSorting(initialArraySize = 20) {
     setSwappingIndices([]);
   };
 
-  // Initialize array when component mounts or array size changes
+  
   useEffect(() => {
     generateRandomArray();
   }, [arraySize]);
@@ -64,9 +63,9 @@ export default function useSorting(initialArraySize = 20) {
         await new Promise(resolve => {
           const checkPause = () => {
             if (pausedRef.current) {
-              setTimeout(checkPause, 100); // wait 100 millisecond then call checkpause function
+              setTimeout(checkPause, 100); 
             } else {
-              start = Date.now(); // Reset the start time when unpaused
+              start = Date.now(); 
               resolve();
             }
           };
