@@ -12,7 +12,7 @@ export default function AlgorithmSelector({
   displayMode,
   setDisplayMode
 }) {
-  // List of available algorithms
+  
   const algorithms = [
     { id: 'selection', name: 'Selection Sort' },
     { id: 'insertion', name: 'Insertion Sort' },
