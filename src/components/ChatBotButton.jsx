@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ChatBot from './ChatBot'; // ⬅️ Create this file separately
+import ChatBot from './ChatBot'; 
 
 const ChatBotButton = () => {
   const [open, setOpen] = useState(false);
